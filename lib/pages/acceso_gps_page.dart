@@ -8,11 +8,10 @@ class AccesogpsPage extends StatefulWidget {
   State<AccesogpsPage> createState() => _AccesogpsPageState();
 }
 
-class _AccesogpsPageState extends State<AccesogpsPage> with WidgetsBindingObserver {
-
+class _AccesogpsPageState extends State<AccesogpsPage>
+    with WidgetsBindingObserver {
   @override
   void initState() {
-    
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
@@ -24,21 +23,17 @@ class _AccesogpsPageState extends State<AccesogpsPage> with WidgetsBindingObserv
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async{
-    
-    if (  state == AppLifecycleState.resumed ) {
-      if ( await Permission.location.isGranted  ) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      if (await Permission.location.isGranted) {
         Navigator.pushReplacementNamed(context, 'loading');
       }
     }
-
-
   }
-
 
   @override
   Widget build(BuildContext context) {
-    const varStyle = TextStyle( color: Colors.white);
+    const varStyle = TextStyle(color: Colors.white);
     return Scaffold(
       body: Center(
         child: Column(
@@ -48,25 +43,22 @@ class _AccesogpsPageState extends State<AccesogpsPage> with WidgetsBindingObserv
             MaterialButton(
               onPressed: () async {
                 final status = await Permission.location.request();
-                accesoGPS( status );
+                accesoGPS(status);
               },
               color: Colors.black,
               shape: const StadiumBorder(),
               elevation: 0,
               splashColor: Colors.transparent,
               child: const Text("Solicitar acceso", style: varStyle),
-              )
-
+            )
           ],
         ),
       ),
     );
   }
 
-  void accesoGPS( PermissionStatus status ) {
-    print(status);
-    print("##########status#####");
-    switch( status ) {
+  void accesoGPS(PermissionStatus status) {
+    switch (status) {
       case PermissionStatus.granted:
         Navigator.pushReplacementNamed(context, 'mapa');
         break;
@@ -79,5 +71,4 @@ class _AccesogpsPageState extends State<AccesogpsPage> with WidgetsBindingObserv
         break;
     }
   }
-
 }
