@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      home: const LoadingPage(),
+      // home: const LoadingPage(),
+      home: const AccesogpsPage(),
       routes: {
         'mapa': (_) => const MapaPage(),
         'loading': (_) => const LoadingPage(),
