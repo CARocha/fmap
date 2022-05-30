@@ -11,8 +11,12 @@ part 'mi_ubicacion_state.dart';
 class MiUbicacionBloc extends Bloc<MiUbicacionEvent, MiUbicacionState> {
   StreamSubscription<Position>? _subscription;
   MiUbicacionBloc() : super(const MiUbicacionState()) {
-    on<MiUbicacionEvent>((event, emit) {
-      // TODO: implement event handler
+    on<OnUbicacionCambio>((event, emit) {
+      //print(event);
+      emit( state.copyWith(
+        existeUbicacion: true,
+        ubicacion: event.ubicacion
+      ));
     });
   }
 
@@ -24,7 +28,9 @@ class MiUbicacionBloc extends Bloc<MiUbicacionEvent, MiUbicacionState> {
     _subscription =
         Geolocator.getPositionStream(locationSettings: geoLocatorOptions)
             .listen((position) {
-      print(position);
+            //print(position);
+            final newUbicacion = new LatLng(position.latitude, position.longitude);
+            add(OnUbicacionCambio(newUbicacion));
     });
   }
 
