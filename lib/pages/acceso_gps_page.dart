@@ -10,7 +10,6 @@ class AccesogpsPage extends StatefulWidget {
 
 class _AccesogpsPageState extends State<AccesogpsPage>
     with WidgetsBindingObserver {
-
   bool popUp = false;
 
   @override
@@ -27,7 +26,7 @@ class _AccesogpsPageState extends State<AccesogpsPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if ( state == AppLifecycleState.resumed && !popUp ) {
+    if (state == AppLifecycleState.resumed && !popUp) {
       if (await Permission.location.isGranted) {
         Navigator.pushReplacementNamed(context, 'loading');
       }

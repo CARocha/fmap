@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Material App',
-        // home: const LoadingPage(),
-        home: const AccesogpsPage(),
+        home: const LoadingPage(),
+        //home: const AccesogpsPage(),
         routes: {
           'mapa': (_) => const MapaPage(),
           'loading': (_) => const LoadingPage(),
