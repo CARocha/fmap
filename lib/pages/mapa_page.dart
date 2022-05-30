@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fmapa/bloc/mapa/mapa_bloc.dart';
 import 'package:fmapa/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
+import 'package:fmapa/widgets/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapaPage extends StatefulWidget {
@@ -31,6 +32,12 @@ class _MapaPageState extends State<MapaPage> {
     return Scaffold(
       body: BlocBuilder<MiUbicacionBloc, MiUbicacionState>(
         builder: ( _ , state) => crearMapa(state),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: const [
+          BtnUbicacion(),
+        ],
       ),
     );
   }
