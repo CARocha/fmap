@@ -9,18 +9,19 @@ part 'mapa_event.dart';
 part 'mapa_state.dart';
 
 class MapaBloc extends Bloc<MapaEvent, MapaState> {
-  MapaBloc() : super(const MapaState()) {
+  MapaBloc() : super(MapaState()) {
     on<OnMapaListo>((event, emit) {
-      emit(
-        state.copyWith(mapaListo: true)
-      );
+      emit(state.copyWith(mapaListo: true, dibujarRecorrido: true));
+    });
+    on<OnNuevaUbicacion>((event, emit) {
+      print(event.ubicacion);
     });
   }
 
   late GoogleMapController _mapController;
 
-  void initMapa(GoogleMapController controller){
-    if ( !state.mapaListo ){
+  void initMapa(GoogleMapController controller) {
+    if (!state.mapaListo) {
       _mapController = controller;
       //TODO: tema del mapa
       _mapController.setMapStyle(jsonEncode(uberMapTheme));
@@ -28,9 +29,8 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
     }
   }
 
-  void moverCamara( LatLng destino ){
+  void moverCamara(LatLng destino) {
     final cameraUpdate = CameraUpdate.newLatLng(destino);
     _mapController.animateCamera(cameraUpdate);
   }
-
 }

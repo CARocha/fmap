@@ -3,13 +3,20 @@ part of 'mapa_bloc.dart';
 @immutable
 class MapaState {
   final bool mapaListo;
+  final bool dibujarRecorrido;
+  // polylines
+  final Map<String, Polyline> polylines;
 
-  const MapaState({this.mapaListo = false});
+  MapaState(
+      {this.mapaListo = false,
+      this.dibujarRecorrido = true,
+      Map<String, Polyline>? polylines})
+      : polylines = polylines ?? {};
 
-  MapaState copyWith({
-    required bool mapaListo
-  }) => MapaState(
-    mapaListo: mapaListo
-  );
-
+  MapaState copyWith(
+          {required bool mapaListo, required bool dibujarRecorrido}) =>
+      MapaState(
+          mapaListo: mapaListo,
+          dibujarRecorrido: dibujarRecorrido,
+          polylines: polylines);
 }

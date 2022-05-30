@@ -13,7 +13,6 @@ class MapaPage extends StatefulWidget {
 }
 
 class _MapaPageState extends State<MapaPage> {
-
   @override
   void initState() {
     BlocProvider.of<MiUbicacionBloc>(context).iniciarSeguimiento();
@@ -31,7 +30,7 @@ class _MapaPageState extends State<MapaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<MiUbicacionBloc, MiUbicacionState>(
-        builder: ( _ , state) => crearMapa(state),
+        builder: (_, state) => crearMapa(state),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -42,15 +41,17 @@ class _MapaPageState extends State<MapaPage> {
     );
   }
 
-  Widget crearMapa( MiUbicacionState state){
-    if ( !state.existeUbicacion ) return const Center(child: Text("Ubicando..."));
+  Widget crearMapa(MiUbicacionState state) {
+    if (!state.existeUbicacion) return const Center(child: Text("Ubicando..."));
 
     final mapaBloc = BlocProvider.of<MapaBloc>(context);
 
+    mapaBloc.add(OnNuevaUbicacion(
+        LatLng(state.ubicacion!.latitude, state.ubicacion!.longitude)));
+
     final camaraPosicion = CameraPosition(
-      target: LatLng(state.ubicacion!.latitude, state.ubicacion!.longitude),
-      zoom: 16
-      );
+        target: LatLng(state.ubicacion!.latitude, state.ubicacion!.longitude),
+        zoom: 16);
     return GoogleMap(
       initialCameraPosition: camaraPosicion,
       compassEnabled: true,
